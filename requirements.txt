@@ -8,6 +8,10 @@ whisper>=1.1.10
 torch>=2.0.0
 RealtimeSTT>=0.1.0
 
+# LLM Integration
+open-webui>=0.1.0
+requests>=2.31.0  # For API calls to Ollama
+
 # Configuration
 pyyaml>=6.0.1
 

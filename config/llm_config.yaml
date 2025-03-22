@@ -1,0 +1,20 @@
+# LLM Configuration
+model:
+  name: "deepseek-r1:8b"
+  api_url: "http://localhost:11434"
+
+# System prompt to guide the model's behavior
+system_prompt: |
+  You are a helpful AI assistant. You should:
+  1. Be concise but informative
+  2. Be friendly and professional
+  3. Admit when you don't know something
+  4. Focus on providing accurate information
+
+# Generation parameters
+generation:
+  temperature: 0.7
+  max_tokens: 1000
+  top_p: 0.9
+  frequency_penalty: 0.0
+  presence_penalty: 0.0 
