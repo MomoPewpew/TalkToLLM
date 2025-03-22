@@ -1,0 +1,17 @@
+# Audio Configuration
+microphone:
+  device_id: 1  # Default microphone device ID
+  sample_rate: 16000
+  channels: 1
+  dtype: float32
+
+# Audio Processing
+chunk_duration: 0.5  # Duration of audio chunks in seconds
+silence_threshold: 0.01  # Threshold for silence detection
+silence_duration: 1.0  # Duration of silence to trigger processing
+
+# Output
+output:
+  sample_rate: 22050
+  channels: 1
+  dtype: float32 
