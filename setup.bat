@@ -34,12 +34,24 @@ docker exec ollama ollama pull deepseek-r1:8b
 echo Installing Python dependencies...
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
 
+echo Checking audio setup...
+echo - Make sure your microphone is connected and enabled
+echo - Check Windows sound settings if needed
+echo - Audio output should be configured in Windows
+
 echo.
 echo Setup complete! To run the application:
 echo 1. Make sure Docker Desktop is running
-echo 2. Run: python src/main.py
+echo 2. Ensure your microphone and speakers are working
+echo 3. Run: python src/main.py
 echo.
 echo To stop the application:
 echo 1. Press Ctrl+C to stop the Python application
 echo 2. Run: docker-compose down
+
+echo.
+echo Note: If you experience audio issues:
+echo - Check Windows Sound settings
+echo - Make sure no other application is using the microphone
+echo - Try running the application with administrator privileges
 pause 

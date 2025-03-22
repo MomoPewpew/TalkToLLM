@@ -17,63 +17,58 @@ class DeepSeekLLM:
             config_path (str): Path to the configuration file
         """
         self.config = self._load_config(config_path)
-        self.model = self.config["model"]["name"]
-        self.api_url = self.config["model"]["api_url"]
+        self.api_url = self.config.get("api_url", "http://localhost:11434")
+        self.model_name = self.config.get("model_name", "deepseek-coder:latest")
         self.system_prompt = self.config.get("system_prompt")
         self._ensure_model_available()
 
     def _load_config(self, config_path: str) -> Dict[str, Any]:
         """Load configuration from YAML file."""
         try:
-            with open(config_path, 'r') as f:
+            with open(config_path, "r") as f:
                 return yaml.safe_load(f)
-        except Exception as e:
-            print(f"Warning: Could not load config file: {e}")
-            return {
-                "model": {
-                    "name": "deepseek-r1:8b",
-                    "api_url": "http://localhost:11434"
-                },
-                "generation": {
-                    "temperature": 0.7,
-                    "top_p": 0.9,
-                    "max_tokens": 500,
-                    "repeat_penalty": 1.1,
-                    "stop": ["\n\n", "Human:", "Assistant:"],
-                    "num_predict": 100
-                },
-                "formatting": {
-                    "remove_artifacts": True,
-                    "ensure_sentence_endings": True,
-                    "clean_whitespace": True,
-                    "max_line_length": 80,
-                    "add_punctuation": True
-                }
-            }
+        except FileNotFoundError:
+            print(f"Warning: Config file {config_path} not found. Using defaults.")
+            return {}
+        except yaml.YAMLError as e:
+            print(f"Warning: Error parsing config file: {e}. Using defaults.")
+            return {}
 
     def _ensure_model_available(self) -> None:
-        """Ensure the model is available locally."""
+        """Ensure the model is available in Ollama."""
         try:
-            # Check if model exists
-            response = requests.get(f"{self.api_url}/api/tags")
-            response.raise_for_status()
-            models = [model["name"] for model in response.json()["models"]]
-            
-            if self.model not in models:
-                print(f"Pulling model {self.model}...")
-                response = requests.post(
-                    f"{self.api_url}/api/pull",
-                    json={"name": self.model}
-                )
+            # First check if Ollama is running
+            try:
+                response = requests.get(f"{self.api_url}/api/tags")
                 response.raise_for_status()
-                print("Model pulled successfully!")
-        except requests.exceptions.ConnectionError:
-            raise Exception(
-                "Could not connect to Ollama. Make sure it's running with: "
-                "docker-compose up -d"
-            )
-        except requests.exceptions.RequestException as e:
-            raise Exception(f"Failed to check/pull model: {str(e)}")
+            except requests.exceptions.ConnectionError:
+                raise Exception(
+                    "Could not connect to Ollama. Please ensure:\n"
+                    "1. Docker is running\n"
+                    "2. Ollama container is started with: docker-compose up -d\n"
+                    "3. The Ollama service is accessible at http://localhost:11434"
+                )
+            except requests.exceptions.RequestException as e:
+                raise Exception(f"Error connecting to Ollama: {str(e)}")
+
+            # Check if model exists
+            models = response.json().get("models", [])
+            model_exists = any(model.get("name") == self.model_name for model in models)
+
+            if not model_exists:
+                print(f"Model {self.model_name} not found. Pulling...")
+                try:
+                    response = requests.post(
+                        f"{self.api_url}/api/pull",
+                        json={"name": self.model_name}
+                    )
+                    response.raise_for_status()
+                    print(f"Successfully pulled model {self.model_name}")
+                except requests.exceptions.RequestException as e:
+                    raise Exception(f"Failed to pull model {self.model_name}: {str(e)}")
+
+        except Exception as e:
+            raise Exception(f"Failed to ensure model availability: {str(e)}")
 
     def _clean_response(self, response: str) -> str:
         """Clean and format the response text."""
@@ -173,7 +168,7 @@ class DeepSeekLLM:
             
             # Prepare generation parameters
             params = {
-                "model": self.model,
+                "model": self.model_name,
                 "prompt": prompt,
                 "system": system_prompt,
                 "stream": stream

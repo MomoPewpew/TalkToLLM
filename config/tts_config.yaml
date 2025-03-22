@@ -1,0 +1,47 @@
+# TTS Configuration
+voice: "jenny"   # Default voice (friendly name)
+speed: 1.0      # Speech rate (0.5 to 2.0, where 1.0 is normal)
+volume: 1.0     # Volume (0.0 to 1.0, where 1.0 is full volume)
+
+# Available voices (friendly names):
+# - "jenny": Clear female voice (en-US-JennyNeural)
+# - "aria": Natural female voice (en-US-AriaNeural)
+# - "guy": Natural male voice (en-US-GuyNeural)
+# - "emma": Natural female voice (en-US-EmmaNeural)
+# - "brian": Natural male voice (en-US-BrianNeural)
+# - "christopher": Natural male voice (en-US-ChristopherNeural)
+# - "eric": Natural male voice (en-US-EricNeural)
+# - "british_ryan": British male voice (en-GB-RyanNeural)
+# - "british_sonia": British female voice (en-GB-SoniaNeural)
+
+# Note: This configuration uses Microsoft Edge TTS voices.
+# The voice will automatically fall back to an available voice if the selected one is not found.
+
+# Available voices depend on your Windows Text-to-Speech settings
+# Common Windows voices:
+# - "Microsoft David Desktop"
+# - "Microsoft Zira Desktop"
+# - "Microsoft Mark Desktop"
+# You can add more voices through Windows Settings > Time & Language > Speech > Manage voices
+
+# Available voices (language codes):
+# - "en": English
+# - "es": Spanish
+# - "fr": French
+# - "de": German
+# - "it": Italian
+# - "ja": Japanese
+# - "ko": Korean
+# - "zh": Chinese
+# And many more - any language code supported by Google TTS
+
+# Available voices:
+# - "en": English
+# - "es": Spanish
+# - "fr": French
+# - "de": German
+# - "it": Italian
+# - "ja": Japanese
+# - "ko": Korean
+# - "zh": Chinese
+# And many more - any language code supported by Google TTS 
