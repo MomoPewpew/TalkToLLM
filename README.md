@@ -56,7 +56,7 @@ TalkToLLM/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/TalkToLLM.git
+   git clone https://github.com/MomoPewpew/TalkToLLM.git
    cd TalkToLLM
    ```
 
@@ -69,7 +69,7 @@ TalkToLLM/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/TalkToLLM.git
+   git clone https://github.com/MomoPewpew/TalkToLLM.git
    cd TalkToLLM
    ```
 
