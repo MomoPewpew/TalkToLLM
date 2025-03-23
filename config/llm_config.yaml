@@ -5,16 +5,16 @@ model:
 
 # System prompt to guide the model's behavior
 system_prompt: |
-  You are a helpful AI assistant. You should:
-  1. Be concise but informative
-  2. Be friendly and professional
-  3. Admit when you don't know something
-  4. Focus on providing accurate information
+  You are a helpful AI assistant. Your responses should be:
+  1. Very concise and brief (2-3 sentences maximum)
+  2. Direct and to the point
+  3. Focused on answering exactly what was asked
+  4. Free of self-references or meta-commentary
 
 # Generation parameters
 generation:
   temperature: 0.7
-  max_tokens: 1000
+  max_tokens: 100  # Limit response length
   top_p: 0.9
   frequency_penalty: 0.0
   presence_penalty: 0.0 

@@ -1,9 +1,28 @@
 # TTS Configuration
-voice: "jenny"   # Default voice (friendly name)
-speed: 1.0      # Speech rate (0.5 to 2.0, where 1.0 is normal)
-volume: 1.0     # Volume (0.0 to 1.0, where 1.0 is full volume)
 
-# Available voices (friendly names):
+# General settings
+implementation: coqui  # Use Coqui TTS engine
+language: en  # Language code for English
+voice: "jenny"  # Voice model to use (see available voices below)
+
+# Available Coqui voices:
+# - "jenny": Jenny model (tts_models/en/jenny/jenny)
+# - "glow": Glow-TTS model (tts_models/en/glow-tts/ljspeech)
+# - "tacotron": Tacotron2 model (tts_models/en/tacotron2-DDC/ljspeech)
+# - "vits": VITS model (tts_models/en/vits/ljspeech)
+# - "fast": FastPitch model (tts_models/en/fast_pitch/ljspeech)
+# - "multi": Multilingual model (tts_models/multilingual/multi-dataset/xtts_v1)
+
+# Speech settings
+speed: 1.0  # Speech rate (0.5 to 2.0, where 1.0 is normal)
+volume: 1.0  # Volume (0.0 to 1.0, where 1.0 is full volume)
+
+# Coqui TTS settings
+coqui_host: "localhost"
+coqui_port: 5002
+coqui_protocol: "http"
+
+# Available Edge TTS voices (friendly names):
 # - "jenny": Clear female voice (en-US-JennyNeural)
 # - "aria": Natural female voice (en-US-AriaNeural)
 # - "guy": Natural male voice (en-US-GuyNeural)
@@ -14,8 +33,7 @@ volume: 1.0     # Volume (0.0 to 1.0, where 1.0 is full volume)
 # - "british_ryan": British male voice (en-GB-RyanNeural)
 # - "british_sonia": British female voice (en-GB-SoniaNeural)
 
-# Note: This configuration uses Microsoft Edge TTS voices.
-# The voice will automatically fall back to an available voice if the selected one is not found.
+# Note: The voice will automatically fall back to an available voice if the selected one is not found.
 
 # Available voices depend on your Windows Text-to-Speech settings
 # Common Windows voices:
