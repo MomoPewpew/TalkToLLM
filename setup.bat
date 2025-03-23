@@ -2,15 +2,44 @@
 setlocal EnableDelayedExpansion
 
 echo Checking Python installation...
-python --version >nul 2>&1
+python --version
 if %errorLevel% neq 0 (
-    echo Python is not installed or not in PATH. Please:
+    echo.
+    echo ERROR: Python is not installed or not in PATH.
+    echo.
+    echo Please follow these steps:
     echo 1. Download Python 3.8 or higher from https://www.python.org/
-    echo 2. Install Python (ensure "Add Python to PATH" is checked)
-    echo 3. Run this script again
+    echo 2. Run the installer
+    echo 3. IMPORTANT: Check "Add Python to PATH" during installation
+    echo 4. Complete the installation
+    echo 5. Close and reopen your terminal/PowerShell
+    echo 6. Run this script again
+    echo.
+    echo Current Python location:
+    where python
+    echo.
     pause
     exit /b 1
 )
+
+REM Get Python version (simpler method)
+python -c "import sys; print(''.join(map(str, sys.version_info[:2])))" > temp_version.txt
+set /p PYTHON_VERSION=<temp_version.txt
+del temp_version.txt
+
+REM Check if version is 3.8 or higher
+if !PYTHON_VERSION! LSS 38 (
+    echo.
+    echo ERROR: Python version must be 3.8 or higher.
+    echo Current version: !PYTHON_VERSION!
+    echo.
+    echo Please install a newer version from https://www.python.org/
+    pause
+    exit /b 1
+)
+
+echo Found Python version !PYTHON_VERSION!
+echo.
 
 echo Checking for virtual environment...
 if not exist "venv" (
@@ -56,6 +85,10 @@ if %errorLevel% neq 0 (
 
 echo Installing Python dependencies...
 python -m pip install --upgrade pip
+pip install wheel setuptools
+
+REM Install remaining dependencies
+echo Installing remaining dependencies...
 pip install -r requirements.txt
 if %errorLevel% neq 0 (
     echo Failed to install Python dependencies

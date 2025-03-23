@@ -26,7 +26,7 @@ TalkToLLM/
 
 ## Prerequisites
 - Docker Desktop
-- Python 3.8 or higher
+- Python 3.8-3.12
 - A working microphone
 - Speakers or headphones
 
@@ -57,7 +57,8 @@ TalkToLLM/
    - Configure audio settings
 
 4. Configure your settings (optional):
-   - Audio input: `config/audio_config.yaml`
+   - Audio: `config/audio_config.yaml`
+   - Speech-to-text: `config/stt_config.yaml`
    - Text-to-speech: `config/tts_config.yaml`
    - LLM settings: `config/llm_config.yaml`
 
