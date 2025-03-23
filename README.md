@@ -1,6 +1,6 @@
 # TalkToLLM
 
-A real-time voice chat application that uses speech-to-text, LLM, and text-to-speech to create a conversational AI assistant.
+A real-time voice chat application that uses speech-to-text, LLM, and text-to-speech to create a self-hosted conversational AI assistant.
 
 ## Features
 
