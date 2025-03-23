@@ -20,7 +20,7 @@ class AudioPlayer:
         """
         self._audio = pyaudio.PyAudio()
         self._device_name = device_name
-        self._print_audio_info()
+        #self._print_audio_info()
         
     def _print_audio_info(self):
         """Print information about audio devices for debugging."""

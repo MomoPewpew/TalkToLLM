@@ -1,0 +1,26 @@
+FROM python:3.9-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    espeak-ng \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python packages
+RUN pip install --no-cache-dir \
+    TTS==0.8.0 \
+    fastapi==0.68.1 \
+    uvicorn==0.15.0
+
+# Create app directory
+WORKDIR /app
+
+# Copy the server script
+COPY tts_server.py .
+
+# Expose the port
+EXPOSE 5002
+
+# Run the server
+CMD ["uvicorn", "tts_server:app", "--host", "0.0.0.0", "--port", "5002"] 
