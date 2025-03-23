@@ -3,7 +3,7 @@
 # General settings
 implementation: coqui  # Use Coqui TTS engine
 language: en  # Language code for English
-voice: "tacotron"  # Voice model to use (see available voices below)
+voice: "jenny"  # Voice model to use (see available voices below)
 
 # Available Coqui voices:
 # - "jenny": Jenny model (tts_models/en/jenny/jenny)
@@ -16,6 +16,14 @@ voice: "tacotron"  # Voice model to use (see available voices below)
 # Speech settings
 speed: 1.0  # Speech rate (0.5 to 2.0, where 1.0 is normal)
 volume: 1.0  # Volume (0.0 to 1.0, where 1.0 is full volume)
+
+# Audio filter settings
+filter:
+  enabled: true  # Enable/disable the AI voice filter
+  type: "echo"  # Filter type: "robot", "echo", "none"
+  intensity: 0.25  # Filter intensity (0.0 to 1.0)
+  echo_delay: 0.15  # Echo delay in seconds (for echo filter)
+  echo_decay: 0.5  # Echo decay factor (0.0 to 1.0)
 
 # Coqui TTS settings
 coqui_host: "localhost"
