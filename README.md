@@ -1,112 +1,173 @@
 # TalkToLLM
 
-A self-hosted Python environment for voice interaction with Large Language Models.
+A real-time voice chat application that uses speech-to-text, LLM, and text-to-speech to create a conversational AI assistant.
 
 ## Features
-- Real-time speech-to-text transcription using RealtimeSTT
-- Integration with self-hosted DeepSeek LLM via Ollama
-- High-quality text-to-speech using Coqui TTS
-- Multiple voice options with natural-sounding speech
-- Configurable microphone input
-- Docker-based deployment for easy setup
+
+- Real-time speech recognition using RealtimeSTT
+- Text-to-speech using Edge TTS
+- LLM integration using Ollama
+- Configurable audio settings
+- AI voice effects (robot and echo filters)
+- Cross-platform support (Windows, Linux, macOS)
 
 ## Project Structure
+
 ```
 TalkToLLM/
+├── config/
+│   ├── audio_config.yaml    # Audio device and recording settings
+│   ├── llm_config.yaml      # LLM model and API settings
+│   └── tts_config.yaml      # TTS engine and voice settings
 ├── src/
-│   ├── audio/           # Audio input/output handling
-│   ├── transcription/   # Speech-to-text functionality
-│   ├── llm/            # LLM integration
-│   └── tts/            # Text-to-speech functionality
-├── config/             # Configuration files
-├── tests/              # Test files
-├── requirements.txt    # Python dependencies
-└── README.md          # This file
+│   ├── audio/
+│   │   ├── __init__.py      # Audio package initialization
+│   │   ├── filter.py        # Audio effects and filters
+│   │   └── tts.py          # Text-to-speech implementation
+│   ├── llm/
+│   │   ├── __init__.py      # LLM package initialization
+│   │   └── ollama.py        # Ollama API integration
+│   ├── stt/
+│   │   ├── __init__.py      # STT package initialization
+│   │   └── realtime.py      # Real-time speech recognition
+│   ├── __init__.py          # Main package initialization
+│   └── main.py              # Application entry point
+├── tests/                   # Test suite
+├── .gitignore
+├── docker-compose.yml       # Docker services configuration
+├── Dockerfile              # Docker build configuration
+├── LICENSE                 # GNU General Public License v3
+├── README.md
+├── requirements.txt        # Python dependencies
+├── setup.bat              # Windows setup script
+└── setup.sh               # Unix-like systems setup script
 ```
 
 ## Prerequisites
-- Docker Desktop
-- Python 3.8-3.12
-- A working microphone
-- Speakers or headphones
 
-## Setup
-1. Install Docker Desktop if not already installed:
-   - Download from https://www.docker.com/products/docker-desktop
-   - Install and start Docker Desktop
-   - Wait for it to fully initialize
+- Python 3.8 or higher
+- Docker and Docker Compose
+- Working microphone and speakers
+- Windows 10/11, Linux, or macOS
 
-2. Create a Python virtual environment:
+## Installation
+
+### Windows
+
+1. Clone the repository:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   git clone https://github.com/yourusername/TalkToLLM.git
+   cd TalkToLLM
    ```
 
-3. Run the setup script:
+2. Run the setup script:
    ```bash
-   # On Windows
    setup.bat
-   
-   # On Linux/Mac
+   ```
+
+### Linux/macOS
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/TalkToLLM.git
+   cd TalkToLLM
+   ```
+
+2. Make the setup script executable and run it:
+   ```bash
+   chmod +x setup.sh
    ./setup.sh
    ```
-   This will:
-   - Start the required Docker containers
-   - Pull the DeepSeek LLM model
-   - Install Python dependencies
-   - Configure audio settings
-
-4. Configure your settings (optional):
-   - Audio: `config/audio_config.yaml`
-   - Speech-to-text: `config/stt_config.yaml`
-   - Text-to-speech: `config/tts_config.yaml`
-   - LLM settings: `config/llm_config.yaml`
 
 ## Usage
-1. Ensure Docker Desktop is running
-2. Activate your virtual environment:
-   ```bash
-   venv\Scripts\activate  # On Windows
-   source venv/bin/activate  # On Linux/Mac
-   ```
-3. Start the application:
+
+1. Start the application:
    ```bash
    python -m src.main
    ```
-4. Wait for the "speak now" prompt
-5. Start talking! The system will:
-   - Transcribe your speech in real-time
-   - Process it through the DeepSeek LLM
-   - Respond using Coqui TTS
 
-To stop the application:
-1. Press Ctrl+C to stop the Python application
-2. Run `docker-compose down` to stop the containers
+2. Speak into your microphone. The application will:
+   - Convert your speech to text
+   - Send it to the LLM for processing
+   - Convert the response to speech
+   - Play it through your speakers
 
-## Troubleshooting
-### Audio Issues
-- Ensure your microphone is properly connected and enabled
-- Check Windows Sound settings
-- Verify no other application is using the microphone
-- Try running with administrator privileges
-- Check the device ID in `config/audio_config.yaml` matches your microphone
+3. Press Ctrl+C to stop the application
 
-### Docker Issues
-- Ensure Docker Desktop is running
-- Check if containers are running: `docker ps`
-- View container logs: `docker-compose logs`
-- Restart containers: `docker-compose restart`
+## Configuration
 
-### Performance Issues
-- The first speech synthesis may take longer (~10-15s)
-- Subsequent responses will be faster
-- Consider using a GPU for faster LLM responses
+### Audio Settings
+
+Edit `config/audio_config.yaml` to configure:
+- Input device (microphone)
+- Output device (speakers)
+- Sample rate and channels
+- Buffer size
+
+### LLM Settings
+
+Edit `config/llm_config.yaml` to configure:
+- Model name and size
+- API endpoint
+- Temperature and other parameters
+
+### TTS Settings
+
+Edit `config/tts_config.yaml` to configure:
+- Voice selection
+- Speech rate and volume
+- AI voice effects (robot/echo filters)
 
 ## Development
-Contributions are welcome! Please:
+
+### Running Tests
+
+```bash
+pytest
+```
+
+### Code Style
+
+The project uses:
+- Black for code formatting
+- Flake8 for linting
+- isort for import sorting
+
+Run the formatters:
+```bash
+black .
+isort .
+```
+
+## Troubleshooting
+
+### Audio Issues
+
+1. Check your system's audio settings
+2. Ensure no other application is using the microphone
+3. Try running with administrator privileges
+4. Verify device IDs in `config/audio_config.yaml`
+
+### Docker Issues
+
+1. Ensure Docker Desktop is running
+2. Check Docker logs: `docker-compose logs`
+3. Restart Docker services: `docker-compose down && docker-compose up -d`
+
+## Contributing
+
 1. Fork the repository
 2. Create a feature branch
-3. Submit a pull request
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
-[To be added] 
+
+This project is licensed under the GNU General Public License v3 - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- [RealtimeSTT](https://github.com/KoljaB/RealtimeSTT) for speech recognition
+- [Edge TTS](https://github.com/ganlvtech/edge-tts) for text-to-speech
+- [Ollama](https://ollama.ai/) for LLM capabilities
