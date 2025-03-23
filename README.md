@@ -45,10 +45,19 @@ TalkToLLM/
 
 ## Prerequisites
 
-- Python 3.8 or higher
-- Docker and Docker Compose
-- Working microphone and speakers
-- Windows 10/11, Linux, or macOS
+1. **Docker Desktop** (Required)
+   - Download and install from [Docker Desktop](https://www.docker.com/products/docker-desktop)
+   - Must be running before starting the application
+   - Required for running the LLM service
+
+2. **Python Environment**
+   - Python 3.8-3.12
+   - Virtual environment support (venv)
+
+3. **Hardware Requirements**
+   - Working microphone
+   - Speakers or headphones
+   - Windows 10/11, Linux, or macOS
 
 ## Installation
 
@@ -60,7 +69,13 @@ TalkToLLM/
    cd TalkToLLM
    ```
 
-2. Run the setup script:
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+3. Run the setup script:
    ```bash
    setup.bat
    ```
@@ -73,7 +88,13 @@ TalkToLLM/
    cd TalkToLLM
    ```
 
-2. Make the setup script executable and run it:
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Make the setup script executable and run it:
    ```bash
    chmod +x setup.sh
    ./setup.sh
@@ -81,18 +102,29 @@ TalkToLLM/
 
 ## Usage
 
-1. Start the application:
+1. Ensure Docker Desktop is running
+
+2. Activate the virtual environment:
+   ```bash
+   # On Windows
+   venv\Scripts\activate
+   
+   # On Linux/macOS
+   source venv/bin/activate
+   ```
+
+3. Start the application:
    ```bash
    python -m src.main
    ```
 
-2. Speak into your microphone. The application will:
+4. Speak into your microphone. The application will:
    - Convert your speech to text
    - Send it to the LLM for processing
    - Convert the response to speech
    - Play it through your speakers
 
-3. Press Ctrl+C to stop the application
+5. Press Ctrl+C to stop the application
 
 ## Configuration
 
